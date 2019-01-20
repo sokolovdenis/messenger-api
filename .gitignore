@@ -3,5 +3,11 @@
 ################################################################################
 
 /.vs
-/MessengerApi/obj
-/MessengerApi/bin
+/Abstractions/bin
+/Abstractions/obj
+/DataAccess.Mongo/bin
+/DataAccess.Mongo/obj
+/DataAccess.Mongo.Tests/bin
+/DataAccess.Mongo.Tests/obj
+/WebApi/bin
+/WebApi/obj

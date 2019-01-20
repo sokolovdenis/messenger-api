@@ -1,5 +1,5 @@
-﻿using MessengerApi.DataSources.Contracts;
-using MessengerApi.DataSources.InMemory;
+﻿using Abstractions.DataSources;
+using DataAccess.Mongo;
 using MessengerApi.Services;
 using MessengerApi.Swagger;
 using Microsoft.AspNetCore.Builder;
@@ -33,8 +33,12 @@ namespace MessengerApi
 				services,
 				Configuration.GetValue<string>("Authentication:Secret"));
 
-			services.AddSingleton<IUserDataSource, InMemoryUserDataSource>();
-			services.AddSingleton<IIdentityDataSource, InMemoryIdentityDataSource>();
+			services.Configure<MongoConnection.Options>(
+				Configuration.GetSection("Mongo"));
+			services.AddSingleton<MongoConnection>();
+
+			services.AddSingleton<IUserDataSource, UserDataSource>();
+			services.AddSingleton<IIdentityDataSource, IdentityDataSource>();
 
 			services.AddSingleton<IdentityService>();
 			services.AddSingleton<JwtAuthenticationService>();
@@ -80,7 +84,7 @@ namespace MessengerApi
 			app.UseSwaggerUI(c =>
 			{
 				c.SwaggerEndpoint("/swagger/v1/swagger.json", "Messenger API V1");
-				c.SupportedSubmitMethods(new SubmitMethod[0]); // disable Try button
+				//c.SupportedSubmitMethods(new SubmitMethod[0]); // disable Try button
 			});
 		}
 	}

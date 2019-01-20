@@ -1,4 +1,5 @@
-﻿using MessengerApi.Models;
+﻿using Abstractions.Models;
+using MessengerApi.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;

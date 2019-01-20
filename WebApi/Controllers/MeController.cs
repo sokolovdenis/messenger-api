@@ -1,9 +1,7 @@
-﻿using MessengerApi.DataSources.Contracts;
+﻿using Abstractions.DataSources;
 using MessengerApi.Helpers;
-using MessengerApi.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Threading.Tasks;
 
 namespace MessengerApi.Controllers
@@ -22,9 +20,9 @@ namespace MessengerApi.Controllers
 		[HttpGet]
 		public async Task<IActionResult> Get()
 		{
-			Guid id = this.GetCurrentUserId();
+			var id = this.GetCurrentUserId();
 
-			User user = await _userDataSource.Read(id);
+			var user = await _userDataSource.ReadAsync(id);
 
 			return Ok(user);
 		}

@@ -1,8 +1,7 @@
-﻿using MessengerApi.DataSources.Contracts;
+﻿using Abstractions.DataSources;
 using MessengerApi.Models;
 using MessengerApi.Services;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -40,21 +39,21 @@ namespace MessengerApi.Controllers
 		[ProducesResponseType(409)]
 		public async Task<IActionResult> SignUp([FromBody] SignUpRequest request)
 		{
-			Guid id = _identityService.GenerateIdentityHash(request.Login);
+			var id = _identityService.GenerateIdentityHash(request.Login);
 
 			_identityService.GeneratePasswordHashAndSalt(
 				request.Password, out byte[] hash, out byte[] salt);
 
-			User user = await _userDataSource.Create(Guid.NewGuid(), request.Name);
+			var user = await _userDataSource.CreateAsync(request.Name);
 
-			Identity identity = await _identityDataSource.Create(id, user.Id, salt, hash);
+			var identity = await _identityDataSource.CreateAsync(id, user.Id, salt, hash);
 			if (identity == null)
 			{
 				// delete user
 				return StatusCode((int)HttpStatusCode.Conflict, "Login is already in use.");
 			}
 
-			TokenResponse tokenResponse = _jwtAuthenticationService.CreateTokenResponse(identity);
+			var tokenResponse = _jwtAuthenticationService.CreateTokenResponse(identity);
 
 			return Ok(tokenResponse);
 		}
@@ -69,9 +68,9 @@ namespace MessengerApi.Controllers
 		[ProducesResponseType(400)]
 		public async Task<IActionResult> SignIn([FromBody] SignInRequest request)
 		{
-			Guid id = _identityService.GenerateIdentityHash(request.Login);
+			var id = _identityService.GenerateIdentityHash(request.Login);
 
-			Identity identity = await _identityDataSource.Read(id);
+			var identity = await _identityDataSource.ReadAsync(id);
 
 			if (identity == null ||
 				!_identityService.IsPasswordValid(request.Password, identity.Hash, identity.Salt))
@@ -79,7 +78,7 @@ namespace MessengerApi.Controllers
 				return BadRequest("Wrong login or password.");
 			}
 
-			TokenResponse tokenResponse = _jwtAuthenticationService.CreateTokenResponse(identity);
+			var tokenResponse = _jwtAuthenticationService.CreateTokenResponse(identity);
 
 			return Ok(tokenResponse);
 		}

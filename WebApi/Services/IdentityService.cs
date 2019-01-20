@@ -1,10 +1,7 @@
-﻿using MessengerApi.Helpers;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace MessengerApi.Services
 {
@@ -34,7 +31,7 @@ namespace MessengerApi.Services
 		{
 			Rfc2898DeriveBytes rfc2898DeriveBytes = new Rfc2898DeriveBytes(password, savedSalt, IterationsCount);
 			byte[] computedHash = rfc2898DeriveBytes.GetBytes(HashSize);
-			return ByteArrayHelper.AreEqual(savedHash, computedHash);
+			return Enumerable.SequenceEqual(savedHash, computedHash);
 		}
 	}
 }

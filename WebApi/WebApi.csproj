@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>bin\Debug\netcoreapp2.2\MessengerApi.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\netcoreapp2.2\WebApi.xml</DocumentationFile>
     <OutputPath />
     <NoWarn>1701;1702;1705;</NoWarn>
   </PropertyGroup>
@@ -18,7 +18,14 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="MongoDB.Driver" Version="2.7.2" />
+    <PackageReference Include="StackExchange.Redis" Version="2.0.519" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="4.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Abstractions\Abstractions.csproj" />
+    <ProjectReference Include="..\DataAccess.Mongo\DataAccess.Mongo.csproj" />
   </ItemGroup>
 
 </Project>
