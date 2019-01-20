@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Abstractions.Models
 {
-	public class Identity : ModelBase
+	public class Identity : ModelBase<Guid>
 	{
 		public Guid UserId { get; set; }
 

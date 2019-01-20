@@ -2,7 +2,7 @@
 
 namespace Abstractions.Models
 {
-	public class User : ModelBase
+	public class User : ModelBase<Guid>
 	{
 		public string Name { get; set; }
 

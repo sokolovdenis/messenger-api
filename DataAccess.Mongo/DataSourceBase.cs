@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Mongo
 {
-	public abstract class DataSourceBase<T> where T : ModelBase
+	public abstract class DataSourceBase<T> where T : ModelBase<Guid>
 	{
 		protected IMongoCollection<T> Collection { get; }
 

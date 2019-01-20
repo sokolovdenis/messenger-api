@@ -2,8 +2,8 @@
 
 namespace Abstractions
 {
-	public abstract class ModelBase
+	public abstract class ModelBase<T>
 	{
-		public Guid Id { get; set; }
+		public T Id { get; set; }
 	}
 }
