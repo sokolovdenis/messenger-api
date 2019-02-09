@@ -1,8 +1,8 @@
 ﻿using Abstractions.DataSources;
 using Abstractions.Models;
+using MongoDB.Driver;
 using System;
 using System.Threading.Tasks;
-using MongoDB.Driver;
 
 namespace DataAccess.Mongo
 {
