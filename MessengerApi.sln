@@ -11,6 +11,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess.Mongo.Tests", "D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi", "WebApi\WebApi.csproj", "{BE9B7D94-DB98-4C07-9BA8-106187B0F8FE}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess.Redis", "DataAccess.Redis\DataAccess.Redis.csproj", "{B397ED53-E59A-4F80-8315-E71F4B00E61B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess.Redis.Tests", "DataAccess.Redis.Tests\DataAccess.Redis.Tests.csproj", "{B55053D7-ECEA-471D-BD6A-AB764BD57847}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{BE9B7D94-DB98-4C07-9BA8-106187B0F8FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BE9B7D94-DB98-4C07-9BA8-106187B0F8FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BE9B7D94-DB98-4C07-9BA8-106187B0F8FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B397ED53-E59A-4F80-8315-E71F4B00E61B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B397ED53-E59A-4F80-8315-E71F4B00E61B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B397ED53-E59A-4F80-8315-E71F4B00E61B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B397ED53-E59A-4F80-8315-E71F4B00E61B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B55053D7-ECEA-471D-BD6A-AB764BD57847}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B55053D7-ECEA-471D-BD6A-AB764BD57847}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B55053D7-ECEA-471D-BD6A-AB764BD57847}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B55053D7-ECEA-471D-BD6A-AB764BD57847}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
