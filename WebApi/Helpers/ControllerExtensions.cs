@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
 using System.Security.Claims;
@@ -9,7 +10,17 @@ namespace MessengerApi.Helpers
 	{
 		public static Guid GetCurrentUserId(this ControllerBase controller)
 		{
-			return Guid.Parse(controller.User.Claims.Single(c => c.Type == ClaimTypes.NameIdentifier).Value);
+			return controller.User.GetCurrentUserId();
+		}
+
+		public static Guid GetCurrentUserId(this HttpContext context)
+		{
+			return context.User.GetCurrentUserId();
+		}
+
+		public static Guid GetCurrentUserId(this ClaimsPrincipal claimsPrincipal)
+		{
+			return Guid.Parse(claimsPrincipal.Claims.Single(c => c.Type == ClaimTypes.NameIdentifier).Value);
 		}
 	}
 }
