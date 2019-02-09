@@ -11,3 +11,7 @@
 /DataAccess.Mongo.Tests/obj
 /WebApi/bin
 /WebApi/obj
+/DataAccess.Redis/bin
+/DataAccess.Redis/obj
+/DataAccess.Redis.Tests/bin
+/DataAccess.Redis.Tests/obj
