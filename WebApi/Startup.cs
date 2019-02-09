@@ -12,6 +12,7 @@ using Swashbuckle.AspNetCore.SwaggerUI;
 using System;
 using System.IO;
 using System.Reflection;
+using WebApi.WebSockets;
 
 namespace MessengerApi
 {
@@ -64,6 +65,9 @@ namespace MessengerApi
 		{
 			app.UseDefaultFiles();
 			app.UseStaticFiles();
+
+			app.UseWebSockets();
+			app.UseMessagePushHandler("/websocket");
 
 			if (env.IsDevelopment())
 			{
