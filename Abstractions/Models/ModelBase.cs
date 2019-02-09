@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Abstractions
+﻿namespace Abstractions
 {
 	public abstract class ModelBase<T>
 	{
