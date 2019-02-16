@@ -1,8 +1,4 @@
-﻿################################################################################
-# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
-################################################################################
-
-/.vs
+﻿/.vs
 /Abstractions/bin
 /Abstractions/obj
 /DataAccess.Mongo/bin
@@ -15,3 +11,7 @@
 /DataAccess.Redis/obj
 /DataAccess.Redis.Tests/bin
 /DataAccess.Redis.Tests/obj
+/Frontend/.cache
+/Frontend/.vscode
+/Frontend/dist
+/Frontend/node_modules

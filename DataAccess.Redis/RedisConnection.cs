@@ -8,9 +8,9 @@ namespace DataAccess.Redis
 	{
 		public class Options
 		{
-			public string Address { get; set; }
+			public string Address { get; set; } = "localhost:6379";
 
-			public int Database { get; set; }
+			public int Database { get; set; } = -1;
 		}
 
 		private readonly Options _options;
@@ -25,7 +25,7 @@ namespace DataAccess.Redis
 
 			ConnectionMultiplexer = ConnectionMultiplexer.Connect(_options.Address);
 
-			Database = ConnectionMultiplexer.GetDatabase();
+			Database = ConnectionMultiplexer.GetDatabase(_options.Database);
 		}
 
 		public void Dispose(bool cleanup)

@@ -12,7 +12,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile>bin\Debug\netcoreapp2.2\WebApi.xml</DocumentationFile>
     <OutputPath />
-    <NoWarn>1701;1702;1705;</NoWarn>
+    <NoWarn>1701;1702;1705;1591;</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
@@ -26,6 +26,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Abstractions\Abstractions.csproj" />
     <ProjectReference Include="..\DataAccess.Mongo\DataAccess.Mongo.csproj" />
+    <ProjectReference Include="..\DataAccess.Redis\DataAccess.Redis.csproj" />
   </ItemGroup>
 
 </Project>

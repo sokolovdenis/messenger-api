@@ -66,7 +66,7 @@ namespace WebApi.WebSockets
 						socketClosingTokenSource.Token
 					).Token;
 
-					// TODO: закрыть сокет после протухания сокета
+					// TODO: закрыть сокет после протухания токена
 
 					//var authExpiresUtc = context.Items["AuthExpiresUtc"] as DateTimeOffset?;
 					//if (authExpiresUtc != null)

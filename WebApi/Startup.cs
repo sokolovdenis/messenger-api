@@ -1,5 +1,6 @@
 ﻿using Abstractions.DataSources;
 using DataAccess.Mongo;
+using DataAccess.Redis;
 using MessengerApi.Services;
 using MessengerApi.Swagger;
 using Microsoft.AspNetCore.Builder;
@@ -40,6 +41,12 @@ namespace MessengerApi
 
 			services.AddSingleton<IUserDataSource, UserDataSource>();
 			services.AddSingleton<IIdentityDataSource, IdentityDataSource>();
+
+			services.Configure<RedisConnection.Options>(
+				Configuration.GetSection("Redis"));
+			services.AddSingleton<RedisConnection>();
+
+			services.AddSingleton<IConversationDataSource, ConversationDataSource>();
 
 			services.AddSingleton<IdentityService>();
 			services.AddSingleton<JwtAuthenticationService>();
@@ -88,8 +95,11 @@ namespace MessengerApi
 			app.UseSwaggerUI(c =>
 			{
 				c.SwaggerEndpoint("/swagger/v1/swagger.json", "Messenger API V1");
-				//c.SupportedSubmitMethods(new SubmitMethod[0]); // disable Try button
+				c.SupportedSubmitMethods(new SubmitMethod[0]); // disable Try button
 			});
+
+			app.UseWebSockets();
+			app.UseMessagePushHandler("messages");
 		}
 	}
 }
