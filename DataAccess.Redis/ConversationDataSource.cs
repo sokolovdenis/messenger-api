@@ -20,7 +20,8 @@ namespace DataAccess.Redis
 		private void RaiseMessageEvent(RedisChannel channel, RedisValue value)
 		{
 			var message = JsonConvert.DeserializeObject<Message>(value);
-			OnMessage(this, new MessageEventArgs(message));
+
+			OnMessage?.Invoke(this, new MessageEventArgs(message));
 		}
 
 		public event EventHandler<MessageEventArgs> OnMessage;
