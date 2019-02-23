@@ -73,9 +73,6 @@ namespace MessengerApi
 			app.UseDefaultFiles();
 			app.UseStaticFiles();
 
-			app.UseWebSockets();
-			app.UseMessagePushHandler("/websocket");
-
 			if (env.IsDevelopment())
 			{
 				app.UseDeveloperExceptionPage();
@@ -99,7 +96,7 @@ namespace MessengerApi
 			});
 
 			app.UseWebSockets();
-			app.UseMessagePushHandler("messages");
+			app.UseMessagePushHandler("/messages");
 		}
 	}
 }

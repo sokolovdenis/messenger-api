@@ -52,23 +52,44 @@ namespace MessengerApi.Services
 			};
 		}
 
+		public ClaimsPrincipal ValidateToken(string token, out SecurityToken validatedToken)
+		{
+			var handler = new JwtSecurityTokenHandler();
+			var validationParameters = GetTokenValidationParameters(_options.Secret);
+
+			try
+			{
+				return handler.ValidateToken(token, validationParameters, out validatedToken);
+			}
+			catch (SecurityTokenException)
+			{
+				validatedToken = null;
+				return null;
+			}
+		}
+
 		public static void AddJwtAuthentication(IServiceCollection services, string secret)
 		{
-			byte[] secretBytes = Encoding.UTF8.GetBytes(secret);
-
 			services
 				.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 				.AddJwtBearer(configureOptions =>
 				{
-					configureOptions.TokenValidationParameters = new TokenValidationParameters
-					{
-						ValidateAudience = false,
-						ValidateIssuer = false,
-						ValidateLifetime = true,
-						ValidateIssuerSigningKey = true,
-						IssuerSigningKey = new SymmetricSecurityKey(secretBytes)
-					};
+					configureOptions.TokenValidationParameters = GetTokenValidationParameters(secret);
 				});
+		}
+
+		private static TokenValidationParameters GetTokenValidationParameters(string secret)
+		{
+			var secretBytes = Encoding.UTF8.GetBytes(secret);
+
+			return new TokenValidationParameters
+			{
+				ValidateAudience = false,
+				ValidateIssuer = false,
+				ValidateLifetime = true,
+				ValidateIssuerSigningKey = true,
+				IssuerSigningKey = new SymmetricSecurityKey(secretBytes)
+			};
 		}
 	}
 }

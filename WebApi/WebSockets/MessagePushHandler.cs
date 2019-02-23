@@ -1,6 +1,7 @@
 ﻿using Abstractions.DataSources;
 using Abstractions.Models;
 using MessengerApi.Helpers;
+using MessengerApi.Services;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
@@ -22,17 +23,20 @@ namespace WebApi.WebSockets
 		private readonly RequestDelegate _next;
 		private readonly CancellationToken _applicationStoppingCancellationToken;
 		private readonly IConversationDataSource _conversationDataSource;
+		private readonly JwtAuthenticationService _jwtAuthentioncationService;
 		private readonly string _url;
 
 		public MessagePushHandler(
 			RequestDelegate next, 
 			IApplicationLifetime appLifetime, 
-			IConversationDataSource conversationDataSource, 
+			IConversationDataSource conversationDataSource,
+			JwtAuthenticationService jwtAuthentioncationService,
 			string url)
 		{
 			_next = next;
 			_applicationStoppingCancellationToken = appLifetime.ApplicationStopping;
 			_conversationDataSource = conversationDataSource;
+			_jwtAuthentioncationService = jwtAuthentioncationService;
 			_url = url;
 		}
 
@@ -50,7 +54,15 @@ namespace WebApi.WebSockets
 				return;
 			}
 
-			if (!context.User.Identity.IsAuthenticated)
+			var token = context.Request.Query["token"];
+			if (string.IsNullOrEmpty(token))
+			{
+				context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+				return;
+			}
+
+			var user = _jwtAuthentioncationService.ValidateToken(token, out var validatedToken);
+			if (user == null)
 			{
 				context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
 				return;
@@ -61,19 +73,15 @@ namespace WebApi.WebSockets
 				using (var socket = await context.WebSockets.AcceptWebSocketAsync())
 				{
 					var socketClosingTokenSource = new CancellationTokenSource();
+
+					var timeoutDelay = validatedToken.ValidTo - DateTime.UtcNow;
+					var sessionTimeoutTokenSource = new CancellationTokenSource(timeoutDelay);
+
 					var unitedCancellationToken = CancellationTokenSource.CreateLinkedTokenSource(
 						_applicationStoppingCancellationToken, 
-						socketClosingTokenSource.Token
+						socketClosingTokenSource.Token,
+						sessionTimeoutTokenSource.Token
 					).Token;
-
-					// TODO: закрыть сокет после протухания токена
-
-					//var authExpiresUtc = context.Items["AuthExpiresUtc"] as DateTimeOffset?;
-					//if (authExpiresUtc != null)
-					//{
-					//	var sessionTimeout = new CancellationTokenSource(authExpiresUtc.Value - DateTime.UtcNow).Token;
-					//	anyCancel = CancellationTokenSource.CreateLinkedTokenSource(anyCancel, sessionTimeout).Token;
-					//}
 
 					var pushTask = Task.Run(async () => {
 						try
