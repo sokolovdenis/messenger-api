@@ -61,7 +61,7 @@ namespace WebApi.Controllers
 
 		[Route("{userId}/messages")]
 		[HttpPost]
-		public async Task<IActionResult> Post(Guid userId, PostMessageRequest request)
+		public async Task<IActionResult> Post(Guid userId, [FromBody]PostMessageRequest request)
 		{
 			var currentUserId = this.GetCurrentUserId();
 
@@ -72,7 +72,7 @@ namespace WebApi.Controllers
 
 		[Route("public/messages")]
 		[HttpPost]
-		public async Task<IActionResult> Post(PostMessageRequest request)
+		public async Task<IActionResult> Post([FromBody]PostMessageRequest request)
 		{
 			var currentUserId = this.GetCurrentUserId();
 
