@@ -61,8 +61,8 @@ namespace WebApi.WebSockets
 				return;
 			}
 
-			var user = _jwtAuthentioncationService.ValidateToken(token, out var validatedToken);
-			if (user == null)
+			var claimsPrincipal = _jwtAuthentioncationService.ValidateToken(token, out var validatedToken);
+			if (claimsPrincipal == null)
 			{
 				context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
 				return;
@@ -86,7 +86,7 @@ namespace WebApi.WebSockets
 					var pushTask = Task.Run(async () => {
 						try
 						{
-							var currentUserId = context.GetCurrentUserId();
+							var currentUserId = claimsPrincipal.GetCurrentUserId();
 							await PushMessages(_conversationDataSource, currentUserId, socket, unitedCancellationToken);
 						}
 						finally
