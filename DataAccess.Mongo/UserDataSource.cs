@@ -1,5 +1,7 @@
 ﻿using Abstractions.DataSources;
 using Abstractions.Models;
+using MongoDB.Driver;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace DataAccess.Mongo
@@ -9,9 +11,12 @@ namespace DataAccess.Mongo
 		public UserDataSource(MongoConnection connection) : base(connection)
 		{ }
 
-		public async Task<long> CountAsync()
+		public override void Initialize()
 		{
-			return await Collection.EstimatedDocumentCountAsync();
+			var indexBuilder = Builders<User>.IndexKeys;
+			var indexModel = new CreateIndexModel<User>(indexBuilder.Text(u => u.Name));
+
+			Collection.Indexes.CreateOne(indexModel);
 		}
 
 		public async Task<User> CreateAsync(string name)
@@ -24,6 +29,13 @@ namespace DataAccess.Mongo
 			await Collection.InsertOneAsync(user);
 
 			return user;
+		}
+
+		public async Task<IList<User>> SearchAsync(string query)
+		{
+			var filter = Builders<User>.Filter.Text(query);
+			var users = await Collection.FindAsync(filter);
+			return await users.ToListAsync();
 		}
 	}
 }

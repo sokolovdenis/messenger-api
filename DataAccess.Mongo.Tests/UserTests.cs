@@ -1,6 +1,9 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Linq;
+using Abstractions.Models;
 
 namespace DataAccess.Mongo.Tests
 {
@@ -44,6 +47,40 @@ namespace DataAccess.Mongo.Tests
 
 			await UserDataSource.DeleteAsync(createdModel1.Id);
 			await UserDataSource.DeleteAsync(createdModel2.Id);
+		}
+
+		[TestMethod]
+		public async Task Search()
+		{
+			var names = new[] 
+			{
+				"John Smith",
+				"Джон Смит",
+				"John Don",
+				"Джон Иванов",
+				"Steve Smith",
+				"Сергей Иванов",
+				"Иван Петров"
+			};
+
+			var users = names
+				.Select(async name => await UserDataSource.CreateAsync(name))
+				.Select(t => t.Result)
+				.ToList();
+
+			var users1 = await UserDataSource.SearchAsync("john");
+			Assert.AreEqual(2, users1.Count);
+
+			var users2 = await UserDataSource.SearchAsync("SMITH");
+			Assert.AreEqual(2, users2.Count);
+
+			var users3 = await UserDataSource.SearchAsync("джон");
+			Assert.AreEqual(2, users3.Count);
+
+			var users4 = await UserDataSource.SearchAsync("иванов");
+			Assert.AreEqual(2, users4.Count);
+
+			users.ForEach(async user => await UserDataSource.DeleteAsync(user.Id));
 		}
 	}
 }

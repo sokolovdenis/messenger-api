@@ -24,13 +24,15 @@ namespace DataAccess.Mongo.Tests
 			Connection = new MongoConnection(Options.Create(options));
 
 			UserDataSource = new UserDataSource(Connection);
+			UserDataSource.Initialize();
 
 			IdentityDataSource = new IdentityDataSource(Connection);
+			IdentityDataSource.Initialize();
 		}
 
 		public static void Cleanup()
 		{
-			Connection.Client.DropDatabase(_dbName);
+			//Connection.Client.DropDatabase(_dbName);
 		}
 	}
 }

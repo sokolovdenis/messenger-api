@@ -14,6 +14,14 @@ namespace DataAccess.Mongo
 			Collection = connection.Database.GetCollection<T>(typeof(T).Name);
 		}
 
+		public virtual void Initialize()
+		{ }
+
+		public async Task<long> CountAsync()
+		{
+			return await Collection.EstimatedDocumentCountAsync();
+		}
+
 		public async Task<T> DeleteAsync(Guid id)
 		{
 			return await Collection.FindOneAndDeleteAsync(u => u.Id == id);
