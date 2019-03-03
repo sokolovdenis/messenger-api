@@ -2,8 +2,14 @@
 
 namespace Abstractions.Models
 {
+	/// <summary>
+	/// User.
+	/// </summary>
 	public class User : ModelBase<Guid>
 	{
+		/// <summary>
+		/// Name.
+		/// </summary>
 		public string Name { get; set; }
 
 		public override bool Equals(object obj)
