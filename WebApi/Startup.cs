@@ -1,5 +1,4 @@
-﻿using Abstractions.DataSources;
-using DataAccess.Mongo;
+﻿using DataAccess.Mongo;
 using DataAccess.Redis;
 using MessengerApi.Services;
 using MessengerApi.Swagger;
@@ -35,18 +34,9 @@ namespace MessengerApi
 				services,
 				Configuration.GetValue<string>("Authentication:Secret"));
 
-			services.Configure<MongoConnection.Options>(
-				Configuration.GetSection("Mongo"));
-			services.AddSingleton<MongoConnection>();
+			services.AddMongo(Configuration.GetSection("Mongo"));
 
-			services.AddSingleton<IUserDataSource, UserDataSource>();
-			services.AddSingleton<IIdentityDataSource, IdentityDataSource>();
-
-			services.Configure<RedisConnection.Options>(
-				Configuration.GetSection("Redis"));
-			services.AddSingleton<RedisConnection>();
-
-			services.AddSingleton<IConversationDataSource, ConversationDataSource>();
+			services.AddRedis(Configuration.GetSection("Redis"));
 
 			services.AddSingleton<IdentityService>();
 			services.AddSingleton<JwtAuthenticationService>();
@@ -78,6 +68,8 @@ namespace MessengerApi
 				app.UseDeveloperExceptionPage();
 			}
 
+			app.InitializeMongo();
+
 			app.UseAuthentication();
 
 			app.UseCors(builder => builder
@@ -96,7 +88,7 @@ namespace MessengerApi
 			});
 
 			app.UseWebSockets();
-			app.UseMessagePushHandler("/messages");
+			app.UseMessagePushHandler("/socket/messages");
 		}
 	}
 }
