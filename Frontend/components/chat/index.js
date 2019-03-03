@@ -69,7 +69,7 @@ export default class Chat extends React.Component {
 
 				<div>
 					<label htmlFor="connectionUrl">WebSocket Server URL:</label>
-					<input ref={this.addressInput} defaultValue={"ws://localhost:5000/messages?token=" + this.token} />
+					<input ref={this.addressInput} defaultValue={"ws://localhost:5000/socket/messages?token=" + this.token} />
 					<button onClick={this.openClickHandler}>Open Socket</button>
 				</div>
 				<p></p>
