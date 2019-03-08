@@ -15,3 +15,9 @@
 /Frontend/.vscode
 /Frontend/dist
 /Frontend/node_modules
+/Abstractions/out
+/DataAccess.Mongo/out
+/DataAccess.Mongo.Tests/out
+/DataAccess.Redis/out
+/DataAccess.Redis.Tests/out
+/WebApi/out
