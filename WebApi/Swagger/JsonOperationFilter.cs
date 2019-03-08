@@ -1,7 +1,7 @@
 ﻿using Swashbuckle.AspNetCore.Swagger;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace MessengerApi.Swagger
+namespace WebApi.Swagger
 {
 	public class JsonOperationFilter : IOperationFilter
 	{

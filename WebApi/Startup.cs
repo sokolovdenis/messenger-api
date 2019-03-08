@@ -1,7 +1,7 @@
 ﻿using DataAccess.Mongo;
 using DataAccess.Redis;
-using MessengerApi.Services;
-using MessengerApi.Swagger;
+using WebApi.Services;
+using WebApi.Swagger;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -14,7 +14,7 @@ using System.IO;
 using System.Reflection;
 using WebApi.WebSockets;
 
-namespace MessengerApi
+namespace WebApi
 {
 	public class Startup
 	{
@@ -46,9 +46,12 @@ namespace MessengerApi
 			services.AddSwaggerGen(c =>
 			{
 				c.SwaggerDoc("v1", new Info { Title = "Messenger API", Version = "v1" });
+
+				// TODO: не исопльзовать имена сборок явно
 				c.IncludeXmlComments(Path.Combine(
-					AppContext.BaseDirectory,
-					Assembly.GetEntryAssembly().GetName().Name + ".xml"));
+					AppContext.BaseDirectory, "WebApi.xml"));
+				c.IncludeXmlComments(Path.Combine(
+					AppContext.BaseDirectory, "Abstractions.xml"));
 
 				c.OperationFilter<JsonOperationFilter>();
 				c.OperationFilter<AuthResponsesOperationFilter>();
@@ -68,7 +71,7 @@ namespace MessengerApi
 				app.UseDeveloperExceptionPage();
 			}
 
-			app.InitializeMongo();
+			//app.InitializeMongo();
 
 			app.UseAuthentication();
 
@@ -87,8 +90,8 @@ namespace MessengerApi
 				c.SupportedSubmitMethods(new SubmitMethod[0]); // disable Try button
 			});
 
-			app.UseWebSockets();
-			app.UseMessagePushHandler("/socket/messages");
+			//app.UseWebSockets();
+			//app.UseMessagePushHandler("/socket/messages");
 		}
 	}
 }

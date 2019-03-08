@@ -2,7 +2,7 @@
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Collections.Generic;
 
-namespace MessengerApi.Swagger
+namespace WebApi.Swagger
 {
 	public class ResponseCodeOperationFilter : IOperationFilter
 	{

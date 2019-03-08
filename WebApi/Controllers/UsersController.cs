@@ -1,6 +1,6 @@
 ﻿using Abstractions.DataSources;
 using Abstractions.Models;
-using MessengerApi.Helpers;
+using WebApi.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 
-namespace MessengerApi.Controllers
+namespace WebApi.Controllers
 {
 	[Authorize]
 	[Route("api/users")]

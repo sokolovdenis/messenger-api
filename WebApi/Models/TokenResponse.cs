@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MessengerApi.Models
+namespace WebApi.Models
 {
 	/// <summary>
 	/// Token Response.

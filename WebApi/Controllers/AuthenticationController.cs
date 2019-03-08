@@ -1,11 +1,11 @@
 ﻿using Abstractions.DataSources;
-using MessengerApi.Models;
-using MessengerApi.Services;
+using WebApi.Models;
+using WebApi.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace MessengerApi.Controllers
+namespace WebApi.Controllers
 {
 	[Route("api/authentication")]
 	[ApiController]

@@ -4,7 +4,7 @@ using System;
 using System.Linq;
 using System.Security.Claims;
 
-namespace MessengerApi.Helpers
+namespace WebApi.Helpers
 {
 	public static class ControllerExtensions
 	{

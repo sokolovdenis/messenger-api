@@ -1,7 +1,7 @@
 ﻿using Abstractions.DataSources;
 using Abstractions.Models;
-using MessengerApi.Helpers;
-using MessengerApi.Services;
+using WebApi.Helpers;
+using WebApi.Services;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;

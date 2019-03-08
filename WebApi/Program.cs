@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
-namespace MessengerApi
+namespace WebApi
 {
 	public class Program
 	{

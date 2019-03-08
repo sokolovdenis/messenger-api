@@ -1,5 +1,5 @@
 ﻿using Abstractions.Models;
-using MessengerApi.Models;
+using WebApi.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -9,7 +9,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace MessengerApi.Services
+namespace WebApi.Services
 {
 	public class JwtAuthenticationService
 	{

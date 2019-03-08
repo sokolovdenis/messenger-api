@@ -4,7 +4,7 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace MessengerApi.Swagger
+namespace WebApi.Swagger
 {
 	public class AuthResponsesOperationFilter : IOperationFilter
 	{
