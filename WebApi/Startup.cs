@@ -71,7 +71,7 @@ namespace WebApi
 				app.UseDeveloperExceptionPage();
 			}
 
-			//app.InitializeMongo();
+			app.InitializeMongo();
 
 			app.UseAuthentication();
 
@@ -90,8 +90,8 @@ namespace WebApi
 				c.SupportedSubmitMethods(new SubmitMethod[0]); // disable Try button
 			});
 
-			//app.UseWebSockets();
-			//app.UseMessagePushHandler("/socket/messages");
+			app.UseWebSockets();
+			app.UseMessagePushHandler("/socket/messages");
 		}
 	}
 }
